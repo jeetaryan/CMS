@@ -3,7 +3,8 @@ from .extensions.database import init_db
 from .extensions.migration import init_migration
 from .extensions.auth import init_auth
 from .extensions.cache import init_cache
-from .blueprints import register_blueprints
+from .blueprints import auth_blueprints
+from .extensions.celery import init_celery
 
 
 def create_app(config_name='development'):
@@ -20,8 +21,8 @@ def create_app(config_name='development'):
     init_cache(app)
 
     # Register blueprints
-    register_blueprints(app)
+    auth_blueprints(app)
 
     # Store celery in app for access
-
+    init_celery(app)
     return app

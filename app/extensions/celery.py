@@ -4,7 +4,6 @@ from flask import Flask
 
 celery = Celery()
 
-
 def init_celery(app: Flask) -> Celery:
     print("Initializing Celery")
     celery.conf.update(
@@ -22,5 +21,4 @@ def init_celery(app: Flask) -> Celery:
                 return self.run(*args, **kwargs)
 
     celery.Task = ContextTask
-    celery.set_default_app(celery)
     return celery
