@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 from .extensions.database import init_db
 from .extensions.migration import init_migration
 from .extensions.auth import init_auth
@@ -22,6 +22,10 @@ def create_app(config_name='development'):
 
     # Register blueprints
     auth_blueprints(app)
+
+    @app.route('/')
+    def index():
+        return redirect(url_for('auth.register'))
 
     # Store celery in app for access
     init_celery(app)
